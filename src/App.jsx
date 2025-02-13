@@ -1,25 +1,38 @@
-import './App.css'
-import AboutUsSection from './components/AboutUsSection'
-import Footer from './components/Footer'
-import Navbar from './components/Navbar'
-import ServicesSection from './components/ServicesSection'
-import TopGroomersSection from './components/TopGroomersSection'
-import TopNewsSection from './components/TopNewsSection'
-import TopSection from './components/TopSection'
+import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import './App.css';
+import AboutUsSection from './components/AboutUsSection';
+import Footer from './components/Footer';
+import Navbar from './components/Navbar';
+import ServicesSection from './components/ServicesSection';
+import TopGroomersSection from './components/TopGroomersSection';
+import TopNewsSection from './components/TopNewsSection';
+import TopSection from './components/TopSection';
+import Login from './pages/Login';
+import Register from './pages/Register'; // Import Register page
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
-    <div className='app-container w-full min-h-svh bg-white'>
-      <Navbar />
-      <TopSection />
-      <AboutUsSection />
-      <TopGroomersSection />
-      <ServicesSection />
-      <TopNewsSection />
-      <Footer />
-    </div>
-  )
+    <Router>
+      <div className='app-container w-full min-h-svh bg-white'>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<>
+            <TopSection />
+            <AboutUsSection />
+            <TopGroomersSection />
+            <ServicesSection />
+            <TopNewsSection />
+          </>} />
+          <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path="/register" element={<Register />} /> {/* Add Register route */}
+        </Routes>
+        <Footer />
+      </div>
+    </Router>
+  );
 }
 
-export default App
+export default App;
