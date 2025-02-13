@@ -9,6 +9,7 @@ import TopGroomersSection from './components/TopGroomersSection';
 import TopNewsSection from './components/TopNewsSection';
 import TopSection from './components/TopSection';
 import Login from './pages/Login';
+import SignOut from './components/SignOut';
 import Register from './pages/Register'; // Import Register page
 
 function App() {
@@ -17,7 +18,9 @@ function App() {
   return (
     <Router>
       <div className='app-container w-full min-h-svh bg-white'>
-        <Navbar />
+        <Navbar 
+         isLoggedIn={isLoggedIn}
+         setIsLoggedIn={setIsLoggedIn}/>
         <Routes>
           <Route path="/" element={<>
             <TopSection />
@@ -27,6 +30,7 @@ function App() {
             <TopNewsSection />
           </>} />
           <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path="/signout" element={<SignOut setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/register" element={<Register />} /> {/* Add Register route */}
         </Routes>
         <Footer />
