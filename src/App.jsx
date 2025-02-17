@@ -25,10 +25,11 @@ function App() {
           <Route path="/" element={<>
             <TopSection />
             <AboutUsSection />
-            <TopGroomersSection />
             <ServicesSection />
-            <TopNewsSection />
+           
           </>} />
+          <Route path="/services" element={<ServicesSection />} /> 
+          <Route path="/about" element={<AboutUsSection />} /> 
           <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/signout" element={<SignOut setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/register" element={<Register />} /> {/* Add Register route */}

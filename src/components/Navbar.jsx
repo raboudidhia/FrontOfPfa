@@ -28,7 +28,7 @@ const Navbar = () => {
               alt="Pet Care Logo"
             />
             <span className="ml-2 text-black text-lg font-semibold">
-              Honest Pets
+              Rabies Guard
             </span>
           </div>
 
@@ -53,18 +53,7 @@ const Navbar = () => {
               >
                 Services
               </Link>
-              <Link
-                to="/training"
-                className="text-gray-800 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >
-                Training
-              </Link>
-              <Link
-                to="/med-care"
-                className="text-gray-800 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >
-                Med-Care
-              </Link>
+             
             </div>
           </div>
 
@@ -124,18 +113,7 @@ const Navbar = () => {
               >
                 Services
               </Link>
-              <Link
-                to="/training"
-                className="text-gray-800 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-              >
-                Training
-              </Link>
-              <Link
-                to="/med-care"
-                className="text-gray-800 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-              >
-                Med-Care
-              </Link>
+             
               <Link
                 to="/login"
                 className="text-gray-800 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
