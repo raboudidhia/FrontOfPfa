@@ -1,29 +1,28 @@
-import axios from 'axios'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import loginImage from '../assets/images/loginImage.jpeg'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import loginImage from '../assets/images/loginImage.jpeg';
 
 const Login = ({ setIsLoggedIn }) => {
-  const navigate = useNavigate()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
-  const handleSubmit = async (event) => {
-    event.preventDefault()
-    const url = 'http://127.0.0.1:8080/cinemaa/cinemaREST/me/login'
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-    try {
-      const response = await axios.post(url, { email, password })
-      localStorage.setItem('token', response.data.access_token)
-      localStorage.setItem('userEmail', email)
+    // Simulate the login process (skip actual backend call)
+    if (email === 'user@example.com' && password === 'password123') {
+      // Simulate a successful login
+      localStorage.setItem('token', 'fakeAccessToken'); // Store a fake token
+      localStorage.setItem('userEmail', email);
 
-      setIsLoggedIn(true)
-      navigate('/')
-    } catch (error) {
-      setError('Inaccurate Email or password 😒 (try again)')
+      setIsLoggedIn(true); // Update login status in the parent component
+      navigate('/dashboard'); // Redirect to the dashboard page (new interface)
+    } else {
+      setError('Inaccurate Email or password 😒 (try again)');
     }
-  }
+  };
 
   return (
     <div className="relative min-h-screen flex flex-col">
@@ -35,7 +34,7 @@ const Login = ({ setIsLoggedIn }) => {
       </div>
       <div className="relative flex-grow flex justify-center items-center">
         <div className="bg-white bg-opacity-20 backdrop-blur-lg shadow-lg rounded-xl p-6 sm:p-8 md:p-10 w-full max-w-sm sm:max-w-md md:max-w-lg">
-          <h2 className="  text-2xl font-semibold text-white text-center mb-4">Login</h2>
+          <h2 className="text-2xl font-semibold text-white text-center mb-4">Login</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="relative">
               <input
@@ -77,7 +76,7 @@ const Login = ({ setIsLoggedIn }) => {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Login
+export default Login;
