@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import loginImage from '../assets/images/loginImage.jpeg';
 
@@ -18,7 +19,7 @@ const Login = ({ setIsLoggedIn }) => {
       localStorage.setItem('userEmail', email);
 
       setIsLoggedIn(true); // Update login status in the parent component
-      navigate('/dashboard'); // Redirect to the dashboard page (new interface)
+      navigate('/dog'); // Redirect to the dashboard page (new interface)
     } else {
       setError('Inaccurate Email or password 😒 (try again)');
     }
@@ -78,5 +79,9 @@ const Login = ({ setIsLoggedIn }) => {
     </div>
   );
 }
+Login.propTypes = {
+  setIsLoggedIn: PropTypes.func.isRequired,
+};
 
 export default Login;
+
