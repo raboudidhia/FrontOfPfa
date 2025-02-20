@@ -9,7 +9,7 @@ const Upload = () => {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState("");
 
-  // Handle file selection
+  
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -19,7 +19,7 @@ const Upload = () => {
     }
   };
 
-  // Handle form submission
+  
   const handleUpload = async () => {
     if (!selectedFile) {
       alert("Please select an image.");
@@ -50,7 +50,7 @@ const Upload = () => {
       <div className="bg-white shadow-lg p-8 rounded-2xl w-[400px] text-center backdrop-blur-md bg-opacity-80">
         <h1 className="text-2xl font-bold text-gray-800 mb-4">Rabies Detection</h1>
 
-        {/* Upload Box */}
+        {/* Box of upload */}
         <div className="relative border-dashed border-2 border-gray-400 rounded-lg p-4 cursor-pointer hover:border-blue-500">
           <input type="file" accept="image/*" onChange={handleFileChange} className="absolute inset-0 opacity-0 cursor-pointer" />
           <p className="text-gray-500">Click or Drag & Drop to Upload</p>
@@ -68,7 +68,7 @@ const Upload = () => {
           />
         )}
 
-        {/* Upload Button */}
+        {/*Button of upload */}
         <button
           onClick={handleUpload}
           className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 w-full"
@@ -77,7 +77,7 @@ const Upload = () => {
           {loading ? "Analyzing..." : "Analyze Image"}
         </button>
 
-        {/* Result Display */}
+        {/* resultat */}
         {result && (
           <motion.p
             className={`mt-4 text-lg font-semibold ${
