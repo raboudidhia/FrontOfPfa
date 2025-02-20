@@ -1,5 +1,7 @@
 import  { useState } from "react";
 import axios from "axios";
+import { motion } from "framer-motion"; 
+import image from "../assets/images/Flux_Dev_A_futuristic_and_modern_veterinary_AI_analysis_backgr_2.jpeg";
 
 const Upload = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -10,15 +12,17 @@ const Upload = () => {
   // Handle file selection
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    setSelectedFile(file);
-    setPreview(URL.createObjectURL(file));
-    setResult(""); // Reset result when a new file is chosen
+    if (file) {
+      setSelectedFile(file);
+      setPreview(URL.createObjectURL(file));
+      setResult("");
+    }
   };
 
   // Handle form submission
   const handleUpload = async () => {
     if (!selectedFile) {
-      alert("Veuillez sélectionner une image.");
+      alert("Please select an image.");
       return;
     }
 
@@ -30,40 +34,61 @@ const Upload = () => {
       const response = await axios.post("http://localhost:8080/api/upload", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      setResult(response.data.result); // Expecting { result: "Rabies detected" or "No rabies detected" }
+      setResult(response.data.result);
     } catch (error) {
-      console.error("Erreur lors de l'upload :", error);
-      setResult("Erreur lors de la détection.");
+      console.error("Error uploading image:", error);
+      setResult("Error during detection.");
     }
     setLoading(false);
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
-      <h1 className="text-3xl font-bold mb-4">Rabies Detection in Dogs</h1>
-      
-      <div className="bg-white shadow-lg p-6 rounded-lg w-96 text-center">
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleFileChange}
-          className="mb-4 w-full text-sm"
-        />
+    <div
+      className="flex items-center justify-center min-h-screen bg-cover bg-center"
+      style={{ backgroundImage: `url(${image})` }}
+    >
+      <div className="bg-white shadow-lg p-8 rounded-2xl w-[400px] text-center backdrop-blur-md bg-opacity-80">
+        <h1 className="text-2xl font-bold text-gray-800 mb-4">Rabies Detection</h1>
 
+        {/* Upload Box */}
+        <div className="relative border-dashed border-2 border-gray-400 rounded-lg p-4 cursor-pointer hover:border-blue-500">
+          <input type="file" accept="image/*" onChange={handleFileChange} className="absolute inset-0 opacity-0 cursor-pointer" />
+          <p className="text-gray-500">Click or Drag & Drop to Upload</p>
+        </div>
+
+        {/* Image Preview */}
         {preview && (
-          <img src={preview} alt="Preview" className="w-full h-60 object-cover rounded-lg mb-4" />
+          <motion.img
+            src={preview}
+            alt="Preview"
+            className="w-full h-48 object-cover rounded-lg mt-4"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          />
         )}
 
+        {/* Upload Button */}
         <button
           onClick={handleUpload}
-          className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-500 transition duration-300"
+          className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 w-full"
           disabled={loading}
         >
-          {loading ? "Analyse en cours..." : "Analyser l'image"}
+          {loading ? "Analyzing..." : "Analyze Image"}
         </button>
 
+        {/* Result Display */}
         {result && (
-          <p className="mt-4 text-lg font-semibold text-gray-700">{result}</p>
+          <motion.p
+            className={`mt-4 text-lg font-semibold ${
+              result.includes("Rabies") ? "text-red-600" : "text-green-600"
+            }`}
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            {result}
+          </motion.p>
         )}
       </div>
     </div>
