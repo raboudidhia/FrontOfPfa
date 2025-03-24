@@ -6,7 +6,7 @@ import loginImage from '../assets/images/loginImage.jpeg';
 const ResetPassword = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const token = searchParams.get('token'); // Get token from URL
+  const token = searchParams.get('token'); 
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');

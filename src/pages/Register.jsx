@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { register } from '../services/Auth'; // Correct import path
+import { register } from '../services/Auth'; 
 import imageLogin from '../assets/images/loginImage.jpeg';
 
 const Register = () => {
   const navigate = useNavigate();
-  const [username, setUsername] = useState(''); // Add username if required by backend
+  const [username, setUsername] = useState(''); 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -22,11 +22,11 @@ const Register = () => {
     }
 
     try {
-      const message = await register(username, email, password); // Call the register service
+      const message = await register(username, email, password); 
       setRegistrationMessage(`Nice work ${username || email}! You're registered successfully.`);
       setError('');
       setTimeout(() => {
-        navigate('/login'); // Redirect to login page
+        navigate('/login');
       }, 2000);
     } catch (err) {
       setError('Registration failed: ' + err.message);
@@ -35,7 +35,7 @@ const Register = () => {
   };
 
   return (
-    // Your existing JSX remains the same
+    
     <div className="relative min-h-screen flex flex-col">
       <div 
         className="absolute inset-0 bg-cover bg-center"

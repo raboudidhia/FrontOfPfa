@@ -1,7 +1,7 @@
 
 import { Link } from 'react-router-dom';
 import CategoryDropdown from '../components/CategoryDropdown';
-import data from '../data.json'; // Adjust the path based on your folder structure
+import data from '../data.json'; 
 import image1 from '../assets/images/dog1.jpg';
 import image2 from '../assets/images/woman-dog.png';
 import image3 from '../assets/images/vaccination.png';
@@ -11,7 +11,7 @@ import image3 from '../assets/images/vaccination.png';
 
 
 const DogPage = () => {
-  const { sections } = data; // Destructure the sections from the imported data
+  const { sections } = data; 
 
 return (
     <div className="p-6">
