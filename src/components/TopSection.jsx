@@ -1,4 +1,4 @@
-import React from "react";
+
 import FrontImage from "../assets/images/front-image.png";
 import CustomButton from "./CustomButton";
 import { Link } from "react-router-dom";

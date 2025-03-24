@@ -50,7 +50,7 @@ export default function SidebarLayout({ children }) {
           ))}
         </ul>
 
-        {/* Footer with User Profile */}
+        {/* User Profile */}
         <div className="flex items-center gap-2 px-3 py-2 mt-40 ">
           <FaUserCircle size={30} />
           <div className={`leading-5 ${!open && 'w-0 translate-x-24'} duration-500 overflow-hidden`}>
@@ -60,7 +60,7 @@ export default function SidebarLayout({ children }) {
         </div>
       </nav>
 
-      {/* Main Content - Adjusts margin based on sidebar width */}
+      
       <div className={`flex-1 min-h-screen p-5 bg-gray-100 transition-all duration-500 ${open ? 'ml-60' : 'ml-16'}`}>
         {children}
       </div>

@@ -1,11 +1,11 @@
-import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { register } from '../services/Auth'; // Correct import path
 import imageLogin from '../assets/images/loginImage.jpeg';
 
 const Register = () => {
   const navigate = useNavigate();
-  const [name, setName] = useState('');
+  const [username, setUsername] = useState(''); // Add username if required by backend
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -21,24 +21,21 @@ const Register = () => {
       return;
     }
 
-    const url = 'http://127.0.0.1:8080/cinemaa/cinemaREST/me/register';
     try {
-      const response = await axios.post(url, { name, email, password });
-
-      setRegistrationMessage(`Nice work ${name}! You're registered successfully.`);
+      const message = await register(username, email, password); // Call the register service
+      setRegistrationMessage(`Nice work ${username || email}! You're registered successfully.`);
       setError('');
-
       setTimeout(() => {
-        navigate('/signin');
+        navigate('/login'); // Redirect to login page
       }, 2000);
-    } catch (error) {
-      console.error(error);
-      setError('Registration failed');
+    } catch (err) {
+      setError('Registration failed: ' + err.message);
       setRegistrationMessage('');
     }
   };
 
   return (
+    // Your existing JSX remains the same
     <div className="relative min-h-screen flex flex-col">
       <div 
         className="absolute inset-0 bg-cover bg-center"
@@ -53,9 +50,9 @@ const Register = () => {
             <div className="relative">
               <input
                 type="text"
-                placeholder="Your Name"
-                value={name}
-                onChange={(event) => setName(event.target.value)}
+                placeholder="Your Username"
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
                 required
                 className="w-full p-3 bg-transparent border-b border-white text-white outline-none placeholder-white"
               />
@@ -95,7 +92,7 @@ const Register = () => {
             <button
               type="submit"
               className="w-full bg-white text-black py-3 rounded-lg hover:bg-gray-200 transition duration-200"
-              disabled={!name || !email || !password || password !== confirmPassword}
+              disabled={!username || !email || !password || password !== confirmPassword}
             >
               Register
             </button>

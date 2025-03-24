@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { Link } from "react-router-dom";
 import PetCareLogo from "../assets/images/pet-care-logo.png";
 import PawLogo from "../assets/images/blue-paw-logo.png";
