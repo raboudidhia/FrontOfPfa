@@ -12,7 +12,7 @@ import Login from './pages/Login';
 import SignOut from './components/SignOut';
 import Register from './pages/Register'; 
 import ResetPassword from './pages/ResetPassword';
-
+import DiseaseArticlePage from './pages/DiseaseArticlePage';
 import DogPage from './pages/DogPage';
 import Products from './pages/Products';
 import CareTips from './pages/CareTips';
@@ -98,6 +98,10 @@ function App() {
             <Route
               path="/diseases"
               element={isLoggedIn ? <Diseases /> : <Login setIsLoggedIn={setIsLoggedIn} fetchUserDetails={fetchUserDetails} />}
+            />
+            <Route
+              path="/diseases/:id" 
+              element={isLoggedIn ? <DiseaseArticlePage /> : <Login setIsLoggedIn={setIsLoggedIn} fetchUserDetails={fetchUserDetails} />}
             />
             <Route
               path="/upload"
