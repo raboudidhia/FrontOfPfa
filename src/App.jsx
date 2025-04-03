@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify'; // Import ToastContainer
-import 'react-toastify/dist/ReactToastify.css'; // Import Toastify CSS
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 import AboutUsSection from './components/AboutUsSection';
 import Footer from './components/Footer';
@@ -10,11 +10,12 @@ import ServicesSection from './components/ServicesSection';
 import TopSection from './components/TopSection';
 import Login from './pages/Login';
 import SignOut from './components/SignOut';
-import Register from './pages/Register'; 
+import Register from './pages/Register';
 import ResetPassword from './pages/ResetPassword';
 import DiseaseArticlePage from './pages/DiseaseArticlePage';
 import DogPage from './pages/DogPage';
 import Products from './pages/Products';
+import CareTipArticlePage from './pages/CareTipArticlePage';
 import CareTips from './pages/CareTips';
 import Diseases from './pages/Diseases';
 import Upload from './pages/Upload';
@@ -79,7 +80,6 @@ function App() {
             <Route path="/services" element={<ServicesSection />} />
             <Route path="/about" element={<AboutUsSection />} />
             <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} fetchUserDetails={fetchUserDetails} />} />
-            
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/signout" element={<SignOut setIsLoggedIn={setIsLoggedIn} />} />
             <Route path="/register" element={<Register />} />
@@ -96,11 +96,15 @@ function App() {
               element={isLoggedIn ? <CareTips /> : <Login setIsLoggedIn={setIsLoggedIn} fetchUserDetails={fetchUserDetails} />}
             />
             <Route
+              path="/care-tips/:id"
+              element={isLoggedIn ? <CareTipArticlePage /> : <Login setIsLoggedIn={setIsLoggedIn} fetchUserDetails={fetchUserDetails} />}
+            />
+            <Route
               path="/diseases"
               element={isLoggedIn ? <Diseases /> : <Login setIsLoggedIn={setIsLoggedIn} fetchUserDetails={fetchUserDetails} />}
             />
             <Route
-              path="/diseases/:id" 
+              path="/diseases/:id"
               element={isLoggedIn ? <DiseaseArticlePage /> : <Login setIsLoggedIn={setIsLoggedIn} fetchUserDetails={fetchUserDetails} />}
             />
             <Route
@@ -115,7 +119,7 @@ function App() {
           {!isLoggedIn && <Footer />}
         </div>
       </div>
-      <ToastContainer /> {/* Add ToastContainer */}
+      <ToastContainer />
     </Router>
   );
 }
