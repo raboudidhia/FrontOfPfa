@@ -40,8 +40,17 @@ const Upload = () => {
     setLoading(true);
 
     try {
+      const token = localStorage.getItem('token');
+      console.log("Token retrieved from localStorage:", token); // Debug log
+      if (!token) {
+        throw new Error('User not authenticated. No token found in localStorage.');
+      }
+
       const response = await axios.post("http://localhost:8080/api/upload", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Authorization": `Bearer ${token}`,
+        },
       });
       setResult(response.data);
       toast.success("Image analyzed successfully!");
