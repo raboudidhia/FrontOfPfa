@@ -41,7 +41,7 @@ const Upload = () => {
 
     try {
       const token = localStorage.getItem('token');
-      console.log("Token retrieved from localStorage:", token); // Debug log
+      console.log("Token retrieved from localStorage:", token); 
       if (!token) {
         throw new Error('User not authenticated. No token found in localStorage.');
       }
@@ -54,6 +54,7 @@ const Upload = () => {
       });
       setResult(response.data);
       toast.success("Image analyzed successfully!");
+      
     } catch (error) {
       console.error("Error uploading image:", error);
       setResult({
