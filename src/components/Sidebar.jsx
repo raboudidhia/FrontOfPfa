@@ -1,11 +1,12 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import { MdMenuOpen } from "react-icons/md";
 import { GoUpload } from "react-icons/go";
 import { FaProductHunt, FaUserCircle, FaHistory, FaDog, FaDisease } from "react-icons/fa";
 import { IoLogOut } from "react-icons/io5";
 import { MdOutlineTipsAndUpdates } from "react-icons/md";
+import { FaShieldAlt } from "react-icons/fa"; // Icon for Admin Dashboard
 import { Link, useNavigate } from 'react-router-dom';
-
+import { toast } from 'react-toastify';
 
 const menuItems = [
   { icon: <FaDog size={30} />, label: 'MyDog', path: '/dog' },
@@ -14,16 +15,16 @@ const menuItems = [
   { icon: <FaDisease size={30} />, label: 'Diseases', path: '/diseases' },
   { icon: <GoUpload size={30} />, label: 'Upload', path: '/upload' },
   { icon: <FaHistory size={30} />, label: 'History', path: '/history' },
-  { icon: <IoLogOut size={30} />, label: 'Disconnect', path: '/signout' },
 ];
 
-export default function Sidebar({ setIsLoggedIn, username, email }) {
+export default function Sidebar({ setIsLoggedIn, username, email, isAdmin }) {
   const [open, setOpen] = useState(true);
   const navigate = useNavigate();
 
   const handleSignOut = () => {
     localStorage.removeItem('token');
     setIsLoggedIn(false);
+    toast.success('Signed out successfully!');
     navigate('/');
   };
 
@@ -40,30 +41,43 @@ export default function Sidebar({ setIsLoggedIn, username, email }) {
           />
         </div>
 
-        
         <ul className="flex-1">
           {menuItems.map((item, index) => (
             <li key={index} className="px-3 py-2 my-2 hover:bg-gray-700 rounded-md duration-300 cursor-pointer flex gap-2 items-center relative group">
-              {item.label === 'Disconnect' ? (
-                <div onClick={handleSignOut} className="flex gap-2 items-center">
-                  <div>{item.icon}</div>
-                  <p className={`${!open && 'w-0 translate-x-24'} duration-500 overflow-hidden`}>{item.label}</p>
-                </div>
-              ) : (
-                <Link to={item.path || '#'} className="flex gap-2 items-center">
-                  <div>{item.icon}</div>
-                  <p className={`${!open && 'w-0 translate-x-24'} duration-500 overflow-hidden`}>{item.label}</p>
-                </Link>
-              )}
+              <Link to={item.path || '#'} className="flex gap-2 items-center">
+                <div>{item.icon}</div>
+                <p className={`${!open && 'w-0 translate-x-24'} duration-500 overflow-hidden`}>{item.label}</p>
+              </Link>
               <p className={`${open && 'hidden'} absolute left-32 shadow-md rounded-md w-0 p-0 text-black bg-white 
                             duration-100 overflow-hidden group-hover:w-fit group-hover:p-2 group-hover:left-16`}>
                 {item.label}
               </p>
             </li>
           ))}
+          {isAdmin && (
+            <li className="px-3 py-2 my-2 hover:bg-gray-700 rounded-md duration-300 cursor-pointer flex gap-2 items-center relative group">
+              <Link to="/admin" className="flex gap-2 items-center">
+                <div><FaShieldAlt size={30} /></div>
+                <p className={`${!open && 'w-0 translate-x-24'} duration-500 overflow-hidden`}>Admin Dashboard</p>
+              </Link>
+              <p className={`${open && 'hidden'} absolute left-32 shadow-md rounded-md w-0 p-0 text-black bg-white 
+                            duration-100 overflow-hidden group-hover:w-fit group-hover:p-2 group-hover:left-16`}>
+                Admin Dashboard
+              </p>
+            </li>
+          )}
+          <li className="px-3 py-2 my-2 hover:bg-gray-700 rounded-md duration-300 cursor-pointer flex gap-2 items-center relative group">
+            <div onClick={handleSignOut} className="flex gap-2 items-center">
+              <div><IoLogOut size={30} /></div>
+              <p className={`${!open && 'w-0 translate-x-24'} duration-500 overflow-hidden`}>Disconnect</p>
+            </div>
+            <p className={`${open && 'hidden'} absolute left-32 shadow-md rounded-md w-0 p-0 text-black bg-white 
+                          duration-100 overflow-hidden group-hover:w-fit group-hover:p-2 group-hover:left-16`}>
+              Disconnect
+            </p>
+          </li>
         </ul>
 
-        
         <div className="flex items-center gap-2 px-3 py-2 mt-40">
           <FaUserCircle size={30} />
           <div className={`leading-5 ${!open && 'w-0 translate-x-24'} duration-500 overflow-hidden`}>

@@ -21,14 +21,19 @@ import Diseases from './pages/Diseases';
 import Upload from './pages/Upload';
 import History from './pages/History';
 import Sidebar from './components/Sidebar';
+import AdminDashboard from './pages/AdminDashboard';
+import ManageDiseases from './pages/ManageDiseases';
+import ManageCareTips from './pages/ManageCareTips';
+import ManageProducts from './pages/ManageProducts';
 import axios from 'axios';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userDetails, setUserDetails] = useState({ username: '', email: '' });
+  const [userDetails, setUserDetails] = useState({ username: '', email: '', roles: [] });
 
   useEffect(() => {
     const token = localStorage.getItem('token');
+    console.log("App.jsx: Token from localStorage on load:", token);
     if (token) {
       setIsLoggedIn(true);
       fetchUserDetails(token);
@@ -45,14 +50,17 @@ function App() {
       setUserDetails({
         username: response.data.username || 'User',
         email: response.data.email || '',
+        roles: response.data.roles || [],
       });
     } catch (err) {
       console.error('Failed to fetch user details:', err);
       localStorage.removeItem('token');
       setIsLoggedIn(false);
-      setUserDetails({ username: '', email: '' });
+      setUserDetails({ username: '', email: '', roles: [] });
     }
   };
+
+  const isAdmin = userDetails.roles.includes('ADMIN');
 
   return (
     <Router>
@@ -62,6 +70,7 @@ function App() {
             setIsLoggedIn={setIsLoggedIn}
             username={userDetails.username}
             email={userDetails.email}
+            isAdmin={isAdmin}
           />
         )}
         <div className='content-container flex-1'>
@@ -114,6 +123,46 @@ function App() {
             <Route
               path="/history"
               element={isLoggedIn ? <History /> : <Login setIsLoggedIn={setIsLoggedIn} fetchUserDetails={fetchUserDetails} />}
+            />
+            <Route
+              path="/admin"
+              element={
+                isLoggedIn && isAdmin ? (
+                  <AdminDashboard />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+            <Route
+              path="/admin/diseases"
+              element={
+                isLoggedIn && isAdmin ? (
+                  <ManageDiseases />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+            <Route
+              path="/admin/care-tips"
+              element={
+                isLoggedIn && isAdmin ? (
+                  <ManageCareTips />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+            <Route
+              path="/admin/products"
+              element={
+                isLoggedIn && isAdmin ? (
+                  <ManageProducts />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
             />
           </Routes>
           {!isLoggedIn && <Footer />}
