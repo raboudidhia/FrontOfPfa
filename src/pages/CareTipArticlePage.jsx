@@ -18,10 +18,10 @@ export default function CareTipArticlePage() {
         setLoading(true);
         setError(null);
         const response = await axios.get(`http://localhost:8080/api/care-tips/${id}`);
-        console.log('CareTip response:', response.data); // Debug log
+        console.log('CareTip response:', response.data); 
         setCareTip(response.data);
       } catch (err) {
-        console.error('Error fetching care tip:', err.response || err); // Debug log
+        console.error('Error fetching care tip:', err.response || err); 
         setError('Failed to load the care tip. Please try again later.');
       } finally {
         setLoading(false);
@@ -35,7 +35,7 @@ export default function CareTipArticlePage() {
     if (!careTip) return;
 
     const shareData = {
-      title: careTip.name,
+      title: careTip.title, 
       text: `Check out this care tip for dogs: ${careTip.description}`,
       url: window.location.href,
     };
@@ -106,8 +106,14 @@ export default function CareTipArticlePage() {
 
       <div className="bg-white shadow-md rounded-lg p-6">
         <h2 className="text-2xl font-semibold text-heading mb-3">Article</h2>
-        <h3 className="text-xl font-medium text-subheading mb-2">{careTip.article.title}</h3>
-        <p className="text-body whitespace-pre-line">{careTip.article.content}</p>
+        {careTip.article ? (
+          <>
+            <h3 className="text-xl font-medium text-subheading mb-2">{careTip.article.title}</h3>
+            <p className="text-body whitespace-pre-line">{careTip.article.content}</p>
+          </>
+        ) : (
+          <p className="text-gray-500">No article available for this care tip.</p>
+        )}
       </div>
     </motion.div>
   );

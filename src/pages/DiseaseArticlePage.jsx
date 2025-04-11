@@ -52,7 +52,7 @@ export default function DiseaseArticlePage() {
 
   if (loading) {
     return (
-      <div className=" p-4 flex justify-center items-center min-h-screen">
+      <div className="p-4 flex justify-center items-center min-h-screen">
         <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500 border-solid"></div>
       </div>
     );
@@ -60,7 +60,7 @@ export default function DiseaseArticlePage() {
 
   if (error) {
     return (
-      <div className=" p-4">
+      <div className="p-4">
         <div className="text-red-500 text-center">{error}</div>
       </div>
     );
@@ -68,7 +68,7 @@ export default function DiseaseArticlePage() {
 
   if (!disease) {
     return (
-      <div className=" p-4">
+      <div className="p-4">
         <div className="text-gray-500 text-center">Disease not found.</div>
       </div>
     );
@@ -76,7 +76,7 @@ export default function DiseaseArticlePage() {
 
   return (
     <motion.div
-      className=" p-6 max-w-4xl mx-auto"
+      className="p-6 max-w-4xl mx-auto"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -121,8 +121,14 @@ export default function DiseaseArticlePage() {
 
       <div className="bg-white shadow-md rounded-lg p-6">
         <h2 className="text-2xl font-semibold text-heading mb-3">Article</h2>
-        <h3 className="text-xl font-medium text-subheading mb-2">{disease.article.title}</h3>
-        <p className="text-body whitespace-pre-line">{disease.article.content}</p>
+        {disease.article ? (
+          <>
+            <h3 className="text-xl font-medium text-subheading mb-2">{disease.article.title}</h3>
+            <p className="text-body whitespace-pre-line">{disease.article.content}</p>
+          </>
+        ) : (
+          <p className="text-gray-500">No article available for this disease.</p>
+        )}
       </div>
     </motion.div>
   );
