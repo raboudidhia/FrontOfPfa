@@ -4,7 +4,7 @@ import { GoUpload } from "react-icons/go";
 import { FaProductHunt, FaUserCircle, FaHistory, FaDog, FaDisease } from "react-icons/fa";
 import { IoLogOut } from "react-icons/io5";
 import { MdOutlineTipsAndUpdates } from "react-icons/md";
-import { FaShieldAlt } from "react-icons/fa"; // Icon for Admin Dashboard
+import { FaShieldAlt } from "react-icons/fa"; 
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
