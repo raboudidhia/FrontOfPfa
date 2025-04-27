@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { FaSearch, FaPaw, FaHeart, FaRegHeart } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
-import Skeleton from "../components/Skeleton"; // Custom skeleton component
-import { useBookmarks } from "../hooks/useBookmarks"; // Custom hook for bookmarks
+import Skeleton from "../components/Skeleton"; 
+import { useBookmarks } from "../hooks/useBookmarks"; 
 
 export default function Diseases() {
   const [diseaseItems, setDiseaseItems] = useState([]);
@@ -71,15 +71,7 @@ export default function Diseases() {
             <h1 className="text-4xl font-bold text-gray-900 mb-2">Dog Diseases</h1>
             <p className="text-gray-600">Learn about common canine health conditions</p>
           </div>
-          <div className="mt-4 md:mt-0">
-            <Link 
-              to="/bookmarks" 
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              <FaHeart className="text-white" />
-              View Bookmarks
-            </Link>
-          </div>
+         
         </div>
 
         {/* Search and Filter Section */}
