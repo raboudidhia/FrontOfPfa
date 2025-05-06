@@ -77,15 +77,7 @@ export default function CareTips() {
             <h1 className="text-4xl font-bold text-gray-900 mb-2">Dog Care Tips</h1>
             <p className="text-gray-600">Essential advice for keeping your dog happy and healthy</p>
           </div>
-          <div className="mt-4 md:mt-0">
-            <Link 
-              to="/bookmarks" 
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              <FaHeart className="text-white" />
-              View Bookmarks
-            </Link>
-          </div>
+          
         </div>
 
         {/* Search and Filter Section */}

@@ -40,30 +40,55 @@ const Upload = () => {
     setLoading(true);
 
     try {
+      // Step 1: Call FastAPI for detection
+      const fastApiResponse = await axios.post("http://localhost:8000/detect-rabies/", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      const detectionResult = fastApiResponse.data;
+      console.log("FastAPI Detection Result:", detectionResult);
+
+      // Step 2: Send the detection result and image to Spring Boot for storage
       const token = localStorage.getItem('token');
-      console.log("Token retrieved from localStorage:", token); 
       if (!token) {
         throw new Error('User not authenticated. No token found in localStorage.');
       }
 
-      const response = await axios.post("http://localhost:8080/api/upload", formData, {
+      const springBootFormData = new FormData();
+      springBootFormData.append("file", selectedFile);
+      const detectionResultString = JSON.stringify(detectionResult);
+      console.log("Sending detectionResult to Spring Boot:", detectionResultString);
+      springBootFormData.append("detectionResult", detectionResultString);
+
+      const springBootResponse = await axios.post("http://localhost:8080/api/upload", springBootFormData, {
         headers: {
           "Content-Type": "multipart/form-data",
           "Authorization": `Bearer ${token}`,
         },
       });
-      setResult(response.data);
-      toast.success("Image analyzed successfully!");
+
+      console.log("Spring Boot Response:", springBootResponse.data);
+
+      setResult(detectionResult);
+      toast.success(detectionResult.message || "Image analyzed and saved successfully!");
       
     } catch (error) {
-      console.error("Error uploading image:", error);
-      setResult({
-        message: "Error during detection.",
-        status: "error",
-        confidence: 0.0,
-        symptom: "None",
-      });
-      toast.error("Failed to analyze the image. Please try again.");
+      console.error("Error during detection or saving:", error);
+      if (error.response && error.response.status === 401) {
+        toast.error("Session expired. Please log in again.");
+        // Optionally redirect to login page
+        localStorage.removeItem('token');
+        window.location.href = '/login'; // Adjust based on your login route
+      } else {
+        setResult({
+          message: "Error during detection.",
+          status: "error",
+          confidence: 0.0,
+          symptom: "None",
+        });
+        toast.error("Failed to analyze the image. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
