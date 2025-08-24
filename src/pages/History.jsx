@@ -50,33 +50,43 @@ const History = () => {
         <div className="text-gray-500 text-center">No upload history found.</div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {history.map((entry) => (
-            <motion.div
-              key={entry.id}
-              className="bg-white shadow-md rounded-lg p-6 flex flex-col items-center"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <img
-                src={`data:image/jpeg;base64,${entry.imageBase64}`}
-                alt="Uploaded"
-                className="w-full h-48 object-cover rounded-lg mb-4"
-              />
-              <div className="text-center">
-                <p className="text-lg font-semibold">
-                  Detected Symptom: {entry.detectionResult.symptom}
-                </p>
-                <p className="text-sm mt-1">
-                  Confidence: {(entry.detectionResult.confidence * 100).toFixed(2)}%
-                </p>
-                <p className="text-gray-600 mt-2">{entry.detectionResult.message}</p>
-                <p className="text-gray-500 text-sm mt-2">
-                  Uploaded on: {new Date(entry.timestamp).toLocaleString()}
-                </p>
-              </div>
-            </motion.div>
-          ))}
+          {history.map((entry) => {
+            // Provide a fallback for detectionResult
+            const detectionResult = entry.detectionResult || {
+              symptom: 'Unknown',
+              confidence: 0,
+              message: 'No detection result available',
+              status: 'info',
+            };
+
+            return (
+              <motion.div
+                key={entry.id}
+                className="bg-white shadow-md rounded-lg p-6 flex flex-col items-center"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <img
+                  src={`data:image/jpeg;base64,${entry.imageBase64}`}
+                  alt="Uploaded"
+                  className="w-full h-48 object-cover rounded-lg mb-4"
+                />
+                <div className="text-center">
+                  <p className="text-lg font-semibold">
+                    Detected Symptom: {detectionResult.symptom || 'Unknown'}
+                  </p>
+                  <p className="text-sm mt-1">
+                    Confidence: {(detectionResult.confidence * 100).toFixed(2)}%
+                  </p>
+                  <p className="text-gray-600 mt-2">{detectionResult.message || 'No message'}</p>
+                  <p className="text-gray-500 text-sm mt-2">
+                    Uploaded on: {new Date(entry.timestamp).toLocaleString()}
+                  </p>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       )}
     </div>
