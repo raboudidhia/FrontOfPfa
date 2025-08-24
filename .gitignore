@@ -22,3 +22,29 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Python dependencies and virtual environments
+rabies-detection-fastapi/__pycache__/
+rabies-detection-fastapi/*.py[cod]
+rabies-detection-fastapi/*$py.class
+rabies-detection-fastapi/venv/
+rabies-detection-fastapi/env/
+rabies-detection-fastapi/.env
+rabies-detection-fastapi/pip-log.txt
+rabies-detection-fastapi/pip-delete-this-directory.txt
+rabies-detection-fastapi/.pytest_cache/
+rabies-detection-fastapi/instance/
+rabies-detection-fastapi/.coverage
+rabies-detection-fastapi/htmlcov/
+rabies-detection-fastapi/.tox/
+rabies-detection-fastapi/.cache
+rabies-detection-fastapi/nosetests.xml
+rabies-detection-fastapi/coverage.xml
+rabies-detection-fastapi/*.cover
+rabies-detection-fastapi/.hypothesis/
+
+# Model files (if large)
+rabies-detection-fastapi/*.h5
+rabies-detection-fastapi/*.pkl
+rabies-detection-fastapi/*.joblib
+rabies-detection-fastapi/models/
