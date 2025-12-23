@@ -2,6 +2,19 @@
 
 **VetAI** is a web-based application designed to assist dog owners and veterinarians in detecting signs of **rabies** in dogs using **image analysis powered by Machine Learning**. The application provides additional features such as detailed disease information, care tips, and product recommendations to promote animal health and awareness.
 
+## 📖 Documentation Technique Complète
+
+**🇫🇷 Pour une documentation technique détaillée en français couvrant tous les aspects du projet, consultez :**
+**[TECHNICAL_DOCUMENTATION.md](./TECHNICAL_DOCUMENTATION.md)**
+
+Cette documentation complète comprend :
+- Architecture globale du système (microservices)
+- Stack technologique détaillée (React, Spring Boot, FastAPI, YOLOv8)
+- Flux de données et communication entre les services
+- Système d'authentification et sécurité (JWT, BCrypt)
+- Configuration et déploiement
+- Patterns de conception et bonnes pratiques
+
 ---
 
 ## 🚀 Features
